@@ -1,5 +1,0 @@
-{
-  "installCommand": "cd tesfa-web && npm install --legacy-peer-deps",
-  "buildCommand": "cd tesfa-web && npx prisma generate && next build",
-  "outputDirectory": "tesfa-web/.next"
-}
