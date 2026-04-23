@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "name": "TESFA",
+    "slug": "tesfa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "tesfa",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#121222"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tesfa.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#121222"
+      },
+      "package": "com.tesfa.app",
+      "jsEngine": "jsc"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png",
+      "name": "TESFA - The Currency of Community",
+      "shortName": "TESFA",
+      "lang": "he",
+      "dir": "rtl",
+      "themeColor": "#7B2FBE",
+      "backgroundColor": "#0A0A1A",
+      "display": "standalone",
+      "startUrl": "/",
+      "scope": "/",
+      "orientation": "portrait"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "11125fc4-b1aa-4fba-86f8-f70eb4f3e6c0"
+      }
+    },
+    "owner": "almogkehati"
+  }
+}

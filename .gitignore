@@ -1,0 +1,12 @@
+.env
+.env.*
+
+# Hardhat
+cache/
+artifacts/
+coverage/
+coverage.json
+
+# Node
+node_modules/
+.env.local

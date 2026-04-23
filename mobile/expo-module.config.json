@@ -1,0 +1,7 @@
+{
+  "autolinking": {
+    "exclude": [
+      "expo-crypto"
+    ]
+  }
+}
