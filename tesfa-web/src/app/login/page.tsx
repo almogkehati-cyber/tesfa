@@ -17,6 +17,7 @@ const colors = {
   outlineVariant: '#4c4353',
   background: '#0A0A1A',
   error: '#f87171',
+  success: '#4ade80',
 };
 
 export default function LoginPage() {
@@ -42,16 +43,17 @@ export default function LoginPage() {
   };
 
   const handlePinSubmit = (pinToCheck: string) => {
-    // Check against localStorage (client-side only)
+    // MOCK MODE: Accept any PIN
     if (typeof window !== 'undefined') {
-      const savedPin = localStorage.getItem('userPin');
-      if (savedPin && savedPin === pinToCheck) {
-        localStorage.setItem('isLoggedIn', 'true');
-        router.push('/');
-      } else {
-        setError('קוד PIN שגוי');
-        setPin('');
-      }
+      localStorage.setItem('userPin', pinToCheck);
+      localStorage.setItem('isLoggedIn', 'true');
+      // Mock user data
+      localStorage.setItem('currentUser', JSON.stringify({
+        fullName: 'משתמש דמה',
+        email: 'demo@tesfa.app',
+        phone: '050-1234567'
+      }));
+      router.push('/');
     }
   };
 
@@ -108,6 +110,17 @@ export default function LoginPage() {
           >
             הזן את קוד ה-PIN שלך
           </p>
+        </div>
+
+        {/* Mock Mode Notice */}
+        <div 
+          className="w-full max-w-[400px] text-center py-[12px] px-[16px] rounded-[12px] mb-[24px]"
+          style={{ 
+            backgroundColor: `${colors.success}1A`,
+            color: colors.success,
+          }}
+        >
+          🎭 מצב דמה - כל קוד יתקבל
         </div>
 
         {/* PIN Display */}
