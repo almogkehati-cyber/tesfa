@@ -62,26 +62,26 @@ export default function Home() {
 
   return (
     <div className="max-w-[430px] mx-auto relative overflow-hidden" style={{ backgroundColor: colors.background }}>
-      {/* Floating Orbs - Beautiful Background */}
+      {/* Floating Orbs - Beautiful Background - HUGE! */}
       <div 
-        className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
+        className="fixed top-[-200px] right-[-150px] w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{ 
-          backgroundColor: `${colors.primaryContainer}33`,
+          background: `radial-gradient(circle, ${colors.primaryContainer}60 0%, ${colors.primaryContainer}30 40%, transparent 70%)`,
+          filter: 'blur(60px)',
+        }}
+      />
+      <div 
+        className="fixed bottom-[-250px] left-[-200px] w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ 
+          background: `radial-gradient(circle, ${colors.secondaryContainer}50 0%, ${colors.secondaryContainer}20 40%, transparent 70%)`,
           filter: 'blur(80px)',
         }}
       />
       <div 
-        className="absolute bottom-1/3 left-0 w-80 h-80 rounded-full pointer-events-none"
+        className="fixed top-[40%] left-[-100px] w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{ 
-          backgroundColor: `${colors.secondaryContainer}20`,
-          filter: 'blur(100px)',
-        }}
-      />
-      <div 
-        className="absolute top-1/2 right-1/4 w-48 h-48 rounded-full pointer-events-none"
-        style={{ 
-          backgroundColor: `${colors.primary}15`,
-          filter: 'blur(60px)',
+          background: `radial-gradient(circle, ${colors.primary}40 0%, ${colors.primary}15 50%, transparent 70%)`,
+          filter: 'blur(70px)',
         }}
       />
 
