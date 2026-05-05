@@ -5,6 +5,8 @@ import { useState } from 'react';
 import BusinessHeader from '@/components/BusinessHeader';
 import BusinessNav from '@/components/BusinessNav';
 
+export const dynamic = 'force-dynamic';
+
 const colors = {
   primary: '#deb7ff',
   primaryContainer: '#7b2fbe',

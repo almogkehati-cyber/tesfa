@@ -1,3 +1,4 @@
+import './polyfills';
 import type { Metadata, Viewport } from "next";
 import { Heebo } from "next/font/google";
 import "./globals.css";

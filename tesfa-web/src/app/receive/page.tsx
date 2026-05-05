@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useAccount } from 'wagmi';
+import { useState, useEffect } from 'react';
 
 const colors = {
   primary: '#deb7ff',
@@ -17,7 +17,18 @@ const colors = {
 };
 
 export default function ReceivePage() {
-  const { address } = useAccount();
+  // Mock address - no Web3
+  const [address, setAddress] = useState<string>('');
+  
+  useEffect(() => {
+    // Generate mock address from user email or random
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      const { email } = JSON.parse(user);
+      const mockAddress = `0x${email?.slice(0, 4).padEnd(40, '0')}` || '0x1234567890123456789012345678901234567890';
+      setAddress(mockAddress);
+    }
+  }, []);
   
   const truncatedAddress = address 
     ? `${address.slice(0, 6)}...${address.slice(-4)}`
@@ -26,6 +37,7 @@ export default function ReceivePage() {
   const copyAddress = () => {
     if (address) {
       navigator.clipboard.writeText(address);
+      alert('כתובת הועתקה ללוח! 📋');
     }
   };
 

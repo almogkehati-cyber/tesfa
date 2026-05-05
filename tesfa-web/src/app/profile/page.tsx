@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { usePrivy, useWallets } from '@privy-io/react-auth';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const colors = {
   primary: '#deb7ff',
@@ -27,18 +28,34 @@ const menuItems = [
 ];
 
 export default function ProfilePage() {
-  const { ready, authenticated, user, login, logout } = usePrivy();
-  const { wallets } = useWallets();
+  const router = useRouter();
   
-  const embeddedWallet = wallets.find(w => w.walletClientType === 'privy') || wallets[0];
-  const address = embeddedWallet?.address;
-  const isConnected = ready && authenticated && !!address;
+  // Mock state - no Web3
+  const [isConnected, setIsConnected] = useState(false);
+  const [address, setAddress] = useState('');
+  const [displayName, setDisplayName] = useState('משתמש TESFA');
+  
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const savedUser = localStorage.getItem('currentUser');
+    
+    if (isLoggedIn && savedUser) {
+      const user = JSON.parse(savedUser);
+      setIsConnected(true);
+      setDisplayName(user.fullName || user.email || 'משתמש TESFA');
+      const mockAddress = `0x${user.email?.slice(0, 4).padEnd(40, '0')}` || '0x1234567890123456789012345678901234567890';
+      setAddress(mockAddress);
+    }
+  }, []);
   
   const truncatedAddress = address 
     ? `${address.slice(0, 6)}...${address.slice(-4)}`
     : '';
   
-  const displayName = user?.email?.address || user?.google?.email || 'משתמש TESFA';
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    router.push('/login');
+  };
 
   return (
     <div 
@@ -134,15 +151,15 @@ export default function ProfilePage() {
                 ערוך פרופיל
               </Link>
             ) : (
-              <button
-                onClick={login}
-                className="w-full py-3 rounded-full font-bold text-white transition-all active:scale-95"
+              <Link
+                href="/login"
+                className="w-full py-3 rounded-full font-bold text-white transition-all active:scale-95 block text-center"
                 style={{ 
                   background: `linear-gradient(135deg, ${colors.primaryContainer}, ${colors.secondaryContainer})`,
                 }}
               >
                 התחברות
-              </button>
+              </Link>
             )}
           </div>
         </div>
@@ -226,7 +243,7 @@ export default function ProfilePage() {
         {/* Logout */}
         {isConnected && (
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="w-full mt-8 py-4 rounded-2xl font-bold text-[#ffb4ab] transition-colors hover:bg-[#93000a1A]"
             style={{ backgroundColor: colors.surfaceContainerLow }}
           >

@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { usePrivy } from '@privy-io/react-auth';
 
 const colors = {
   background: '#0A0A1A',
@@ -33,7 +32,16 @@ const businessTypes = [
 
 export default function BusinessRegisterPage() {
   const router = useRouter();
-  const { user, ready, authenticated } = usePrivy();
+  
+  // Mock state - no Web3
+  const [user, setUser] = useState<{ id?: string; fullName?: string; email?: string } | null>(null);
+  
+  useEffect(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
   
   const [formData, setFormData] = useState({
     businessName: '',
@@ -90,15 +98,7 @@ export default function BusinessRegisterPage() {
     }
   };
 
-  if (!ready) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: colors.background }}>
-        <div className="animate-spin w-8 h-8 border-2 border-t-transparent rounded-full" style={{ borderColor: colors.primary }} />
-      </div>
-    );
-  }
-
-  if (!authenticated) {
+  if (!user) {
     return (
       <div 
         dir="rtl"

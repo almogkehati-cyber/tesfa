@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { parseUnits } from 'viem';
-import { TESFA_CONTRACT_ADDRESS, TESFA_ABI } from '@/config/contracts';
+import { useRouter } from 'next/navigation';
+
+// Mock - no Web3
+// import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+// import { parseUnits } from 'viem';
+// import { TESFA_CONTRACT_ADDRESS, TESFA_ABI } from '@/config/contracts';
 
 const colors = {
   background: '#0A0A1A',
@@ -45,13 +48,14 @@ const mockContacts: Contact[] = [
 type TxStatus = 'idle' | 'pending' | 'confirming' | 'success' | 'error';
 
 export default function SendPage() {
+  const router = useRouter();
   const [contacts, setContacts] = useState<Contact[]>([]);
-  const [isLoadingContacts, setIsLoadingContacts] = useState(true);
+  const [, setIsLoadingContacts] = useState(true);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [amount, setAmount] = useState('0.00');
   const [searchQuery, setSearchQuery] = useState('');
-  const [txStatus, setTxStatus] = useState<TxStatus>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [txStatus] = useState<TxStatus>('idle');
+  const [errorMessage] = useState('');
 
   // Fetch contacts from API
   useEffect(() => {
@@ -75,36 +79,9 @@ export default function SendPage() {
     fetchContacts();
   }, []);
 
-  // Wagmi hooks for contract interaction
-  const { 
-    writeContract, 
-    data: txHash,
-    isPending: isWritePending,
-    error: writeError,
-    reset: resetWrite
-  } = useWriteContract();
-
-  const { 
-    isLoading: isConfirming, 
-    isSuccess: isConfirmed,
-    error: confirmError 
-  } = useWaitForTransactionReceipt({
-    hash: txHash,
-  });
-
-  // Update status based on transaction state
-  useEffect(() => {
-    if (isWritePending) {
-      setTxStatus('pending');
-    } else if (isConfirming) {
-      setTxStatus('confirming');
-    } else if (isConfirmed) {
-      setTxStatus('success');
-    } else if (writeError || confirmError) {
-      setTxStatus('error');
-      setErrorMessage(writeError?.message || confirmError?.message || 'Transaction failed');
-    }
-  }, [isWritePending, isConfirming, isConfirmed, writeError, confirmError]);
+  // Mock - no Web3 hooks
+  // const { writeContract, data: txHash, isPending: isWritePending, error: writeError, reset: resetWrite } = useWriteContract();
+  // const { isLoading: isConfirming, isSuccess: isConfirmed, error: confirmError } = useWaitForTransactionReceipt({ hash: txHash });
 
   const filteredContacts = contacts.filter(contact =>
     contact.fullName.includes(searchQuery) || contact.phoneSuffix.includes(searchQuery)
@@ -132,48 +109,23 @@ export default function SendPage() {
   const handleSelectContact = (contact: Contact) => {
     setSelectedContact(contact);
     setAmount('0.00');
-    setTxStatus('idle');
-    setErrorMessage('');
-    resetWrite();
   };
 
   const handleBack = () => {
     setSelectedContact(null);
     setAmount('0.00');
-    setTxStatus('idle');
-    setErrorMessage('');
-    resetWrite();
   };
 
   const handleSend = async () => {
     if (!selectedContact || amount === '0.00' || amount === '0') return;
     
-    try {
-      setTxStatus('pending');
-      setErrorMessage('');
-      
-      // Convert amount to Wei (18 decimals)
-      const amountInWei = parseUnits(amount, 18);
-      
-      // Call the transfer function on the smart contract
-      writeContract({
-        address: TESFA_CONTRACT_ADDRESS,
-        abi: TESFA_ABI,
-        functionName: 'transfer',
-        args: [selectedContact.walletAddress as `0x${string}`, amountInWei],
-      });
-    } catch (err) {
-      setTxStatus('error');
-      setErrorMessage(err instanceof Error ? err.message : 'Failed to send transaction');
-    }
+    // Mock - navigate to confirm page
+    router.push(`/send/confirm?amount=${amount}&recipient=${encodeURIComponent(selectedContact.fullName)}&address=${selectedContact.walletAddress}`);
   };
 
   const handleNewTransfer = () => {
     setSelectedContact(null);
     setAmount('0.00');
-    setTxStatus('idle');
-    setErrorMessage('');
-    resetWrite();
   };
 
   const getButtonText = () => {
@@ -470,10 +422,10 @@ export default function SendPage() {
             {txStatus === 'success' ? 'העברה חדשה' : getButtonText()}
           </button>
 
-          {/* Transaction Hash Link */}
-          {txHash && txStatus === 'success' && (
+          {/* Transaction Hash Link - Mock disabled */}
+          {false && txStatus === 'success' && (
             <a 
-              href={`https://amoy.polygonscan.com/tx/${txHash}`}
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center text-sm underline"

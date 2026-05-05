@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePrivy } from '@privy-io/react-auth';
 import BusinessHeader from '@/components/BusinessHeader';
 import BusinessNav from '@/components/BusinessNav';
 
@@ -60,7 +59,7 @@ const menuItems = [
     icon: 'api', 
     label: 'מפתח API', 
     description: 'חיבור מערכות חיצוניות',
-    href: '/business/api',
+    href: '/business/api-key',
     color: 'secondary',
   },
   { 
@@ -73,22 +72,29 @@ const menuItems = [
 ];
 
 export default function BusinessPage() {
-  const { user, ready, authenticated } = usePrivy();
+  // Mock state - no Web3
+  const [user, setUser] = useState<{ id?: string; fullName?: string; email?: string } | null>(null);
+  const [authenticated, setAuthenticated] = useState(false);
   const [business, setBusiness] = useState<Business | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
 
   useEffect(() => {
     async function checkBusiness() {
-      if (!ready) return;
+      const savedUser = localStorage.getItem('currentUser');
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
       
-      if (!authenticated || !user?.id) {
+      if (!isLoggedIn || !savedUser) {
         setIsLoading(false);
         return;
       }
+      
+      const userData = JSON.parse(savedUser);
+      setUser(userData);
+      setAuthenticated(true);
 
       try {
-        const response = await fetch(`/api/business?userId=${user.id}`);
+        const response = await fetch(`/api/business?userId=${userData.id}`);
         const data = await response.json();
         
         if (data.hasBusiness && data.business) {
@@ -105,10 +111,10 @@ export default function BusinessPage() {
     }
 
     checkBusiness();
-  }, [ready, authenticated, user?.id]);
+  }, []);
 
   // Loading state
-  if (isLoading || !ready) {
+  if (isLoading) {
     return (
       <div 
         className="min-h-screen flex items-center justify-center"

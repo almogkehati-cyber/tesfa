@@ -1,13 +1,23 @@
 'use client';
 
-import { useState, useEffect, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
+
+// DISABLED: Privy and Wagmi providers for email/password authentication only
+/*
+import { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PrivyProvider } from '@privy-io/react-auth';
 import { WagmiProvider } from '@privy-io/wagmi';
 import { wagmiConfig, supportedChains } from '@/config/wagmi';
 import { polygonAmoy } from 'wagmi/chains';
+*/
 
 export function Providers({ children }: { children: ReactNode }) {
+  // Simple wrapper - no crypto wallet providers
+  // Using localStorage-based authentication instead
+  return <>{children}</>;
+  
+  /* ORIGINAL PRIVY PROVIDER - DISABLED
   const [mounted, setMounted] = useState(false);
   const [queryClient] = useState(() => new QueryClient());
 
@@ -45,4 +55,5 @@ export function Providers({ children }: { children: ReactNode }) {
       </QueryClientProvider>
     </PrivyProvider>
   );
+  */
 }
