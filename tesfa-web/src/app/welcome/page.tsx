@@ -1,8 +1,9 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 
-// Design system colors
 const colors = {
   primary: '#deb7ff',
   primaryContainer: '#7b2fbe',
@@ -19,7 +20,7 @@ const colors = {
 export default function WelcomePage() {
   return (
     <div 
-      className="flex flex-col min-h-screen items-center justify-between p-[32px] text-right overflow-hidden relative"
+      className="flex flex-col min-h-screen items-center justify-between p-8 text-right overflow-hidden relative"
       style={{ backgroundColor: colors.background, color: colors.onSurface }}
     >
       {/* Celestial Glow Background */}
@@ -30,99 +31,90 @@ export default function WelcomePage() {
         }}
       />
 
-      {/* Background Glow Orbs */}
+      {/* Background Orbs */}
       <div 
         className="fixed bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full pointer-events-none"
         style={{ 
-          backgroundColor: `${colors.secondaryContainer}1A`,
+          background: `${colors.secondaryContainer}1A`,
           filter: 'blur(120px)',
         }}
       />
       <div 
         className="fixed top-[20%] right-[-5%] w-[30%] h-[30%] rounded-full pointer-events-none"
         style={{ 
-          backgroundColor: `${colors.primaryContainer}0D`,
+          background: `${colors.primaryContainer}0D`,
           filter: 'blur(100px)',
         }}
       />
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 mx-auto max-w-[430px] z-50 flex items-center justify-between px-[24px] py-[16px] flex-row-reverse bg-transparent">
+      <header className="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 flex-row-reverse bg-transparent max-w-[430px]">
         <div 
-          className="font-bold text-[24px] tracking-[-0.5px]"
+          className="text-2xl font-bold tracking-tighter"
           style={{ color: colors.primary, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
         >
           TESFA
         </div>
-        <button 
-          className="hover:opacity-80 transition-opacity active:scale-90 duration-200"
-          style={{ color: colors.primary }}
-        >
-          <svg className="w-[24px] h-[24px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        <button className="hover:opacity-80 transition-opacity scale-95 duration-200 active:scale-90" style={{ color: colors.primary }}>
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </button>
       </header>
 
       {/* Hero Content */}
-      <main className="flex-1 flex flex-col items-center justify-center w-full max-w-md z-10 text-center mt-[80px]">
+      <main className="flex-1 flex flex-col items-center justify-center w-full max-w-md z-10 text-center mt-20">
         {/* Visual Anchor: Floating Card */}
-        <div className="relative w-[256px] h-[256px] mb-[48px] flex items-center justify-center">
-          {/* Blur Glow */}
+        <div className="relative w-64 h-64 mb-12 flex items-center justify-center">
           <div 
-            className="absolute inset-0 opacity-20 rounded-full"
+            className="absolute inset-0 rounded-full"
             style={{ 
-              backgroundColor: colors.primaryContainer,
+              backgroundColor: `${colors.primaryContainer}33`,
               filter: 'blur(80px)',
             }}
           />
-          
-          {/* Glass Card */}
           <div 
-            className="relative w-[192px] h-[192px] rounded-[16px] flex items-center justify-center shadow-2xl"
+            className="relative w-48 h-48 rounded-xl flex items-center justify-center shadow-2xl border backdrop-blur-2xl"
             style={{ 
               backgroundColor: `${colors.surfaceContainerHigh}99`,
-              backdropFilter: 'blur(24px)',
-              border: `1px solid ${colors.outlineVariant}1A`,
+              borderColor: `${colors.outlineVariant}1A`,
             }}
           >
-            {/* Gradient Circle with Icon */}
             <div 
-              className="w-[96px] h-[96px] rounded-full flex items-center justify-center"
+              className="w-24 h-24 rounded-full flex items-center justify-center"
               style={{ 
-                background: `linear-gradient(135deg, ${colors.primaryContainer}, ${colors.secondaryContainer})`,
-                boxShadow: '0 0 40px rgba(123,47,190,0.4)',
+                background: `linear-gradient(135deg, ${colors.primaryContainer} 0%, ${colors.secondaryContainer} 100%)`,
+                boxShadow: `0 0 40px ${colors.primaryContainer}66`,
               }}
             >
-              <svg className="w-[48px] h-[48px] text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+              <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
               </svg>
             </div>
           </div>
-
           {/* Floating Accessory Element */}
           <div 
-            className="absolute -bottom-[16px] -right-[16px] w-[64px] h-[64px] rounded-[12px] flex items-center justify-center shadow-lg"
+            className="absolute -bottom-4 -right-4 w-16 h-16 rounded-lg flex items-center justify-center border shadow-lg backdrop-blur-2xl"
             style={{ 
               backgroundColor: `${colors.surfaceContainerHighest}CC`,
-              backdropFilter: 'blur(24px)',
-              border: `1px solid ${colors.outlineVariant}33`,
+              borderColor: `${colors.outlineVariant}33`,
             }}
           >
-            <span style={{ color: colors.primary }} className="text-[24px]">⭐</span>
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{ color: colors.primary }}>
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
           </div>
         </div>
 
-        {/* Text Content */}
-        <div className="space-y-[16px]">
+        <div className="space-y-4">
           <h1 
-            className="text-[40px] font-extrabold tracking-tight"
+            className="text-4xl md:text-5xl font-extrabold tracking-tight"
             style={{ color: colors.onSurface, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
           >
             TESFA
           </h1>
           <p 
-            className="text-[20px] font-medium"
+            className="text-lg md:text-xl font-medium"
             style={{ color: colors.onSurfaceVariant }}
           >
             המטבע של הקהילה
@@ -131,15 +123,16 @@ export default function WelcomePage() {
       </main>
 
       {/* Action Section */}
-      <footer className="w-full max-w-md space-y-[24px] z-10 mb-[32px]">
-        <div className="flex flex-col gap-[16px]">
+      <footer className="w-full max-w-md space-y-6 z-10 mb-8">
+        <div className="flex flex-col gap-4">
           {/* Primary Button: Register */}
           <Link href="/register">
             <button 
-              className="w-full py-[20px] rounded-full text-white font-bold text-[18px] transition-all active:scale-[0.98] active:brightness-110"
-              style={{ 
-                background: 'linear-gradient(to left, #7B2FBE, #9B59F5)',
-                boxShadow: '0 8px 30px rgba(123,47,190,0.3)',
+              className="w-full py-5 rounded-full font-bold text-lg transition-all active:scale-[0.98] active:brightness-110"
+              style={{
+                background: `linear-gradient(to left, #7B2FBE 0%, #9B59F5 100%)`,
+                color: '#FFFFFF',
+                boxShadow: '0 8px 30px rgba(123, 47, 190, 0.3)',
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
               }}
             >
@@ -150,9 +143,10 @@ export default function WelcomePage() {
           {/* Secondary Button: Login */}
           <Link href="/login">
             <button 
-              className="w-full py-[20px] rounded-full bg-transparent font-bold text-[18px] transition-all active:scale-[0.98] hover:bg-[#deb7ff0D]"
-              style={{ 
-                border: `1px solid ${colors.primary}66`,
+              className="w-full py-5 rounded-full border font-bold text-lg hover:bg-opacity-5 transition-all active:scale-[0.98]"
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: `${colors.primary}66`,
                 color: colors.primary,
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
               }}
@@ -163,18 +157,19 @@ export default function WelcomePage() {
         </div>
 
         {/* Language Selector */}
-        <div className="flex items-center justify-center gap-[8px] pt-[16px]">
+        <div className="flex items-center justify-center gap-2 pt-4">
           <button 
-            className="flex items-center gap-[8px] py-[8px] px-[16px] rounded-full transition-colors hover:text-[#deb7ff]"
+            className="flex items-center gap-2 transition-colors py-2 px-4 rounded-full backdrop-blur-2xl"
             style={{ 
-              backgroundColor: `${colors.surfaceContainerLow}80`,
-              backdropFilter: 'blur(24px)',
               color: colors.onSurfaceVariant,
+              backgroundColor: `${colors.surfaceContainerLow}80`,
             }}
           >
-            <span className="text-[20px]">🌐</span>
-            <span className="text-[14px] font-semibold">עברית</span>
-            <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-sm font-semibold">עברית</span>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
