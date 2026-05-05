@@ -2,6 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 
 const colors = {
@@ -18,6 +19,12 @@ const colors = {
 };
 
 export default function WelcomePage() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('hasSeenWelcome', 'true');
+    }
+  }, []);
+
   return (
     <div 
       className="flex flex-col min-h-screen items-center justify-between p-8 text-right overflow-hidden relative"

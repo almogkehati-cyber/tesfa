@@ -35,10 +35,13 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
       const savedUser = localStorage.getItem('currentUser');
+      const hasSeenWelcome = localStorage.getItem('hasSeenWelcome') === 'true';
       
       if (isLoggedIn && savedUser) {
         setIsConnected(true);
         setUser(JSON.parse(savedUser));
+      } else if (!hasSeenWelcome) {
+        router.push('/welcome');
       } else {
         router.push('/login');
       }
